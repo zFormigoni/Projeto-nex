@@ -2,20 +2,18 @@ const Formatacao = require('./model/Formatacao');
 const Excel = require('./model/excel');
 const express = require('express');
 const cors = require('cors');
-const db = require('./db/db'); // Conexão com o banco de dados
-const transacoesRoute = require('./routes/rotasDeTransacoes'); // Rota para transações
+const db = require('./db/db'); //? Conexão com o banco de dados
+const transacoesRoute = require('./routes/rotasDeTransacoes'); //? Rota para transações
 
 //? pega os dados da planilha
-const dados = Excel.retornarDados('./pasta1.xlsx', 0);
-
+//const dados = Excel.retornarDados('./pasta1.xlsx', 0);
 //? cadastra os dados no banco de dados
-Formatacao.cadastrarDados(dados, 1);
+//Formatacao.cadastrarDados(dados, 1);
 
-//cadastrarDados(dados, 1);
-
-// Criação do servidor Express
+//! Criação do servidor Express
 
 const app = express();
+const porta = 3001;
 app.use(cors()); // Habilita CORS para permitir que o frontend acesse a API
 app.use(express.json());
 
@@ -26,8 +24,10 @@ app.use('/', transacoesRoute);
 db.authenticate()
     .then(() => {
         console.log('Conexão com o banco de dados bem-sucedida!');
-        app.listen(3001, () => {
-            console.log('Servidor backend rodando em http://localhost:3001');
+        app.listen(porta, () => {
+            console.log(
+                `Servidor backend rodando em http://localhost:${porta}/todos`
+            );
         });
     })
     .catch((err) => {

@@ -1,4 +1,3 @@
-const sequelize = require('./db');
 const Conexao = require('./conexao');
 
 const mostrarResposta = (resposta) => {
@@ -38,7 +37,7 @@ const Repositorio = {
         try {
             const itens = await Conexao.findAll();
 
-            mostrarResposta(itens);
+            //mostrarResposta(itens);
             return itens;
         } catch (erro) {
             mostrarResposta('Erro ao buscar todos os itens');
@@ -49,10 +48,9 @@ const Repositorio = {
     async BuscarCPF(cpf) {
         try {
             const item = await Conexao.findByPk(cpf);
-            mostrarResposta(item);
+            //mostrarResposta(item);
             return item;
         } catch (erro) {
-            mostrarResposta(erro);
             mostrarResposta('Erro ao busca item por CPF');
         }
     },
@@ -105,7 +103,6 @@ const Repositorio = {
             });
             mostrarResposta('Item deletado');
         } catch (erro) {
-            mostrarResposta(erro);
             mostrarResposta('Erro ao Deletar item');
         }
     },
