@@ -1,29 +1,15 @@
-const Repositorio = require('./db/Repositorio');
 const Formatacao = require('./model/Formatacao');
-const Transacao = require('./model/transacao');
 const Excel = require('./model/excel');
 const express = require('express');
 const cors = require('cors');
 const db = require('./db/db'); // Conexão com o banco de dados
 const transacoesRoute = require('./routes/rotasDeTransacoes'); // Rota para transações
 
+//? pega os dados da planilha
 const dados = Excel.retornarDados('./pasta1.xlsx', 0);
 
-function cadastrarDados(dados, opc) {
-    for (let i = 0; i < dados.length; i++) {
-        const transacao = new Transacao(
-            Formatacao.limparCPF(dados[i]['CPF']),
-            dados[i]['Descrição da transação'],
-            Formatacao.converterDataExcel(dados[i]['Data da transação']),
-            dados[i]['Valor em pontos'],
-            dados[i]['Valor'],
-            Formatacao.converterStatus(dados[i]['Status'])
-        );
-        opc == 1
-            ? Repositorio.CriarItem(transacao)
-            : Repositorio.Deletar(transacao.cpf);
-    }
-}
+//? cadastra os dados no banco de dados
+Formatacao.cadastrarDados(dados, 1);
 
 //cadastrarDados(dados, 1);
 

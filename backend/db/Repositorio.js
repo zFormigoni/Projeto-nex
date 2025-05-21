@@ -10,7 +10,7 @@ const mostrarResposta = (resposta) => {
 const Repositorio = {
     //! verifica se as tabelas do banco e as da transacao sao as mesmas
     /* async iniciarConexao() {
-        await Conexao.sync(); //!mudei de database para Conexao
+        await Conexao.sync(); 
     }, */
 
     //? CREATE

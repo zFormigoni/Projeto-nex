@@ -1,3 +1,6 @@
+const Repositorio = require('../db/Repositorio');
+const Transacao = require('./transacao');
+
 const Formatacao = {
     converterStatus(status) {
         status == 'Aprovado'
@@ -18,6 +21,22 @@ const Formatacao = {
         const dias = Number(numeroExcel) - 2; // Ajuste de correção: Excel conta 1900 como ano bissexto
         base.setDate(base.getDate() + dias);
         return base.toISOString().split('T')[0];
+    },
+
+    cadastrarDados(dados, opc) {
+        for (let i = 0; i < dados.length; i++) {
+            const transacao = new Transacao(
+                this.limparCPF(dados[i]['CPF']),
+                dados[i]['Descrição da transação'],
+                this.converterDataExcel(dados[i]['Data da transação']),
+                dados[i]['Valor em pontos'],
+                dados[i]['Valor'],
+                this.converterStatus(dados[i]['Status'])
+            );
+            opc == 1
+                ? Repositorio.CriarItem(transacao)
+                : Repositorio.Deletar(transacao.cpf);
+        }
     },
 };
 
