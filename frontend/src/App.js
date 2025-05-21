@@ -1,32 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import LoginPage from './pages/Loginpage';
+import AdmPage from './pages/AdminPage';
+import UserPage from './pages/UserPage';
+
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function App() {
-    const [dados, setDados] = useState(null);
-
-    useEffect(() => {
-        // Substitua pela URL da sua API
-        fetch('http://localhost:3001/todos')
-            .then((response) => response.json())
-            .then((data) => setDados(data))
-            .catch((error) => console.error('Erro ao buscar dados:', error));
-    }, []);
-
-    /* {
-        (' ');
-    }
-    {
-        dados ? (
-            <pre>{JSON.stringify(dados, null, 2)}</pre>
-        ) : (
-            <p>Carregando...</p>
-        );
-    } */
-
     return (
         <div className="App">
-            <header className="App-header">Front end</header>
-            <LoginPage />
+            <Router>
+                <div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/">Login</Link>{' '}
+                            </li>
+                            <li>
+                                <Link to="/admin">Admin</Link>{' '}
+                            </li>
+                            <li>
+                                <Link to="/user">User</Link>{' '}
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <Routes>
+                        <Route path="/" element={<LoginPage />} />
+                        <Route path="/admin" element={<AdmPage />} />
+                        <Route path="/user" element={<UserPage />} />
+                    </Routes>
+                </div>
+            </Router>
         </div>
     );
 }

@@ -1,4 +1,3 @@
-// src/pages/LoginPage.jsx
 import React from 'react';
 import Login from '../components/login/LoginComponent';
 
