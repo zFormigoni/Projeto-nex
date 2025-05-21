@@ -2,7 +2,7 @@ class Transacao {
     constructor(cpf, descricao, dataTransacao, pontos, valorMonetario, status) {
         this.cpf = cpf;
         this.descricao = descricao;
-        this.dataTransacao = dataTransacao;
+        this.dataTransacao = dataTransacao; //! 2025-05-20 modelo de data
         this.pontos = pontos;
         this.valorMonetario = valorMonetario;
         this.status = status;

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const database = require('./db');
+const sequelize = require('./db');
 
 const Conexao = database.define(
     'transacao',
@@ -48,8 +49,9 @@ const mostrarResposta = (resposta) => {
 };
 
 const Repositorio = {
+    //! verifica se as tabelas do banco e as da transacao sao as mesmas
     async iniciarConexao() {
-        await database.sync(); //! verifica se as tabelas do banco e as da transacao sao as mesmas
+        await database.sync();
     },
 
     //? CREATE
@@ -69,6 +71,8 @@ const Repositorio = {
             mostrarResposta('Item Criado');
         } catch (erro) {
             mostrarResposta('Erro ao criar item');
+        } finally {
+            await sequelize.close();
         }
     },
 
@@ -81,6 +85,8 @@ const Repositorio = {
             return itens;
         } catch (erro) {
             mostrarResposta('Erro ao buscar todos os itens');
+        } finally {
+            await sequelize.close();
         }
     },
 
@@ -92,6 +98,8 @@ const Repositorio = {
             return item;
         } catch (erro) {
             mostrarResposta('Erro ao busca item por CPF');
+        } finally {
+            await sequelize.close();
         }
     },
 
@@ -107,6 +115,8 @@ const Repositorio = {
             return itens;
         } catch (error) {
             mostrarResposta('Erro ao busca itens por status');
+        } finally {
+            await sequelize.close();
         }
     },
 
@@ -117,14 +127,6 @@ const Repositorio = {
                 where: { cpf: cpf },
             });
 
-            /* const transacao = await Conexao.findByPk(cpf);
-        transacao.update({
-            descricao: 'Compra atualizada de novo',
-            pontos: 2000,
-            status: 2,
-        });
-        transacao.save(); */
-
             if (resultado[0] === 0) {
                 mostrarResposta('Nenhum item foi atualizado');
             } else {
@@ -132,6 +134,8 @@ const Repositorio = {
             }
         } catch (erro) {
             mostrarResposta('Erro ao atualizar item');
+        } finally {
+            await sequelize.close();
         }
     },
 
@@ -153,6 +157,8 @@ const Repositorio = {
             mostrarResposta('Item deletado');
         } catch (erro) {
             mostrarResposta('Erro ao Deletar item');
+        } finally {
+            await sequelize.close();
         }
     },
 };
