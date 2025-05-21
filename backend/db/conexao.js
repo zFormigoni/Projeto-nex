@@ -6,7 +6,7 @@ const Conexao = database.define(
     'transacao',
     {
         cpf: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.BIGINT,
             allowNull: false,
             primaryKey: true,
         },
@@ -27,7 +27,7 @@ const Conexao = database.define(
             allowNull: false,
         },
         status: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             allowNull: false,
             validate: {
                 isIn: {
