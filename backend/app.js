@@ -1,43 +1,23 @@
 const Repositorio = require('./db/Repositorio');
+const Formatacao = require('./model/Formatacao');
 const Transacao = require('./model/transacao');
 const Excel = require('./model/excel');
 const express = require('express');
 const cors = require('cors');
 const db = require('./db/db'); // Conexão com o banco de dados
-const transacoesRoute = require('./routes/transacoes'); // Rota para transações
+const transacoesRoute = require('./routes/rotasDeTransacoes'); // Rota para transações
 
 const dados = Excel.retornarDados('./pasta1.xlsx', 0);
-
-function converterStatus(status) {
-    status == 'Aprovado'
-        ? (status = 1)
-        : status == 'Reprovado'
-        ? (status = 2)
-        : (status = 3);
-
-    return status || 0;
-}
-
-function limparCPF(cpf) {
-    return String(cpf).replace(/\D/g, ''); // Remove tudo que não é dígito
-}
-
-function converterDataExcel(numeroExcel) {
-    const base = new Date(1900, 0, 1); // 1º de janeiro de 1900
-    const dias = Number(numeroExcel) - 2; // Ajuste de correção: Excel conta 1900 como ano bissexto
-    base.setDate(base.getDate() + dias);
-    return base.toISOString().split('T')[0];
-}
 
 function cadastrarDados(dados, opc) {
     for (let i = 0; i < dados.length; i++) {
         const transacao = new Transacao(
-            limparCPF(dados[i]['CPF']),
+            Formatacao.limparCPF(dados[i]['CPF']),
             dados[i]['Descrição da transação'],
-            converterDataExcel(dados[i]['Data da transação']),
+            Formatacao.converterDataExcel(dados[i]['Data da transação']),
             dados[i]['Valor em pontos'],
             dados[i]['Valor'],
-            converterStatus(dados[i]['Status'])
+            Formatacao.converterStatus(dados[i]['Status'])
         );
         opc == 1
             ? Repositorio.CriarItem(transacao)
@@ -48,9 +28,10 @@ function cadastrarDados(dados, opc) {
 //cadastrarDados(dados, 1);
 
 // Criação do servidor Express
+
 const app = express();
 app.use(cors()); // Habilita CORS para permitir que o frontend acesse a API
-app.use(express.json()); // Habilita o express a entender JSON
+app.use(express.json());
 
 // Configuração das rotas
 app.use('/', transacoesRoute);

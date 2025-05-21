@@ -9,9 +9,9 @@ const mostrarResposta = (resposta) => {
 
 const Repositorio = {
     //! verifica se as tabelas do banco e as da transacao sao as mesmas
-    async iniciarConexao() {
+    /* async iniciarConexao() {
         await Conexao.sync(); //!mudei de database para Conexao
-    },
+    }, */
 
     //? CREATE
     async CriarItem(item) {
@@ -30,8 +30,6 @@ const Repositorio = {
             mostrarResposta('Item Criado');
         } catch (erro) {
             mostrarResposta('Erro ao criar item');
-        } finally {
-            await sequelize.close();
         }
     },
 
@@ -44,8 +42,6 @@ const Repositorio = {
             return itens;
         } catch (erro) {
             mostrarResposta('Erro ao buscar todos os itens');
-        } finally {
-            await sequelize.close();
         }
     },
 
@@ -56,9 +52,8 @@ const Repositorio = {
             mostrarResposta(item);
             return item;
         } catch (erro) {
+            mostrarResposta(erro);
             mostrarResposta('Erro ao busca item por CPF');
-        } finally {
-            await sequelize.close();
         }
     },
 
@@ -70,12 +65,9 @@ const Repositorio = {
                     status: status,
                 },
             });
-            mostrarResposta(itens);
             return itens;
         } catch (error) {
             mostrarResposta('Erro ao busca itens por status');
-        } finally {
-            await sequelize.close();
         }
     },
 
@@ -93,8 +85,6 @@ const Repositorio = {
             }
         } catch (erro) {
             mostrarResposta('Erro ao atualizar item');
-        } finally {
-            await sequelize.close();
         }
     },
 
@@ -117,8 +107,6 @@ const Repositorio = {
         } catch (erro) {
             mostrarResposta(erro);
             mostrarResposta('Erro ao Deletar item');
-        } finally {
-            await sequelize.close();
         }
     },
 };
