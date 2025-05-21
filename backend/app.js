@@ -1,4 +1,4 @@
-const Repositorio = require('./db/conexao');
+const Repositorio = require('./db/Repositorio');
 const Transacao = require('./model/transacao');
 const Excel = require('./model/excel');
 
@@ -36,5 +36,5 @@ for (let i = 0; i < dados.length; i++) {
     );
     Repositorio.CriarItem(transacao);
     //Repositorio.Deletar(transacao.cpf);
+    //console.log(transacao.cpf);
 }
-//
