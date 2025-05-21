@@ -1,8 +1,13 @@
 const Repositorio = require('./db/conexao');
 const Transacao = require('./model/transacao');
-const Excel = require('./model/excel');
+const reader = require('xlsx');
 
-const dados = Excel.retornarDados('./pasta1.xlsx', 0);
+const file = reader.readFile('./pasta1.xlsx');
+
+const nomeDaAba = file.SheetNames[0];
+const planilha = file.Sheets[nomeDaAba];
+
+const dados = reader.utils.sheet_to_json(planilha);
 
 function converterStatus(status) {
     status == 'Aprovado'
@@ -34,6 +39,19 @@ for (let i = 0; i < dados.length; i++) {
         dados[i]['Valor'],
         converterStatus(dados[i]['Status'])
     );
-    Repositorio.CriarItem(transacao);
+    //console.log(transacao);
+    //Repositorio.CriarItem(transacao);
+    //Repositorio.Deletar(transacao.cpf);
 }
-//Repositorio.Deletar();
+
+//? inicia uma nova transacao
+//const item = new Transacao('2000', 'item 4', '2025-05-20', 10.0, 1000.0, 1);
+
+//Repositorio.iniciarConexao(); //! Necessario apenas uma vez para criar tabela se nao existir
+
+//Repositorio.CriarItem(item);
+//Repositorio.BuscarTodos();
+//Repositorio.BuscarCPF('1234111111');
+//Repositorio.BuscarStatus(1);
+//Repositorio.Atualizar(item.cpf, item2); //! REVISAR
+//Repositorio.Deletar(28);
