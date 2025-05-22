@@ -1,3 +1,5 @@
+//? Configuracao do sequelize
+
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('db_nex', 'root', '9411', {
     dialect: 'mysql',

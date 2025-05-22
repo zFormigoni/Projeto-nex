@@ -1,3 +1,5 @@
+//? Rotas para serem acessadas pelo frontend
+
 const express = require('express');
 const router = express.Router();
 const Repositorio = require('../db/Repositorio'); // BUSCAR ITENS NO BANCO

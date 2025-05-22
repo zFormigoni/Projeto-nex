@@ -1,3 +1,5 @@
+//? Chamo o repositorio sempre que quero acessar o banco de dados
+
 const Conexao = require('./conexao');
 
 const mostrarResposta = (resposta) => {
@@ -37,7 +39,9 @@ const Repositorio = {
     //? busca por CPF
     async BuscarCPF(cpf) {
         try {
-            const item = await Conexao.findByPk(cpf);
+            const item = await Conexao.findAll({
+                where: { cpf: cpf },
+            });
             //mostrarResposta(item);
             return item;
         } catch (erro) {

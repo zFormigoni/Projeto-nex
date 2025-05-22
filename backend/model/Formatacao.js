@@ -1,3 +1,5 @@
+//? Cria e formata o modelo de item para ser cadastrado no banco
+
 const Repositorio = require('../db/Repositorio');
 const Transacao = require('./transacao');
 
