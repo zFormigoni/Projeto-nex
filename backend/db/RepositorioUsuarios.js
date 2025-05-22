@@ -53,7 +53,17 @@ const RepositorioUsuarios = {
             const item = await ConexaoUsuario.findOne({
                 where: { cpf: cpf },
             });
-            //mostrarResposta(item);
+            return item;
+        } catch (erro) {
+            mostrarResposta('Erro ao busca item por CPF');
+        }
+    },
+
+    async BuscarEmail(email) {
+        try {
+            const item = await ConexaoUsuario.findOne({
+                where: { email: email },
+            });
             return item;
         } catch (erro) {
             mostrarResposta('Erro ao busca item por CPF');

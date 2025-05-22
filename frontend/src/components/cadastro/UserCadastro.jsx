@@ -39,7 +39,7 @@ function UserCadastro() {
                         </span>
                     );
                     await new Promise((resolve) => setTimeout(resolve, 5000));
-                    navigate('/'); //? Redireciona para login
+                    navigate('/login'); //? Redireciona para login
                 } else {
                     setMensagem(
                         <span style={{ color: 'red' }}>
