@@ -22,7 +22,6 @@ function Admin() {
         if (!dados) {
             setDados([]);
         } else if (Array.isArray(dados)) {
-            console.log('DADOS\n', dados);
             setDados(dados);
         } else {
             setDados([dados]);

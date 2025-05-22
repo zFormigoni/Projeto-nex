@@ -2,7 +2,6 @@ import React from 'react';
 import TransacaoItem from './TransacaoItem';
 
 function TabelaTransacoes({ dados }) {
-    console.log(dados);
     if (!dados || dados.length === 0) {
         return <p>Nenhuma transação encontrada.</p>;
     }

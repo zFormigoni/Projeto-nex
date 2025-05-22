@@ -1,10 +1,10 @@
 import React from 'react';
 
 const opcoesStatus = [
-    { label: 'Todos', value: '' },
-    { label: 'Aprovado', value: 'aprovados/' },
-    { label: 'Reprovado', value: 'reprovados/' },
-    { label: 'Em avaliação', value: 'analise/' },
+    { label: 'Todos', value: 0 },
+    { label: 'Aprovado', value: 1 },
+    { label: 'Reprovado', value: 2 },
+    { label: 'Em avaliação', value: 3 },
 ];
 
 function CheckboxFiltro({ valorSelecionado, onChange }) {
