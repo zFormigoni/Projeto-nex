@@ -2,13 +2,7 @@ import React, { useEffect } from 'react';
 import LoginPage from './pages/Loginpage';
 import AdmPage from './pages/AdminPage';
 import UserPage from './pages/UserPage';
-import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    Link,
-    useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import UserCadastro from './components/cadastro/UserCadastro';
 
 function App() {
@@ -17,17 +11,7 @@ function App() {
             <Router>
                 <div>
                     <nav>
-                        <ul>
-                            <li>
-                                <Link to="/login">Login</Link>{' '}
-                            </li>
-                            <li>
-                                <Link to="/admin">Admin</Link>{' '}
-                            </li>
-                            <li>
-                                <Link to="/user">User</Link>{' '}
-                            </li>
-                        </ul>
+                        <Link to="/login">Login</Link>{' '}
                     </nav>
 
                     <Routes>

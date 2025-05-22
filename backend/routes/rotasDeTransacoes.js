@@ -30,7 +30,7 @@ router.get('/cpf/:cpf', async (req, res) => {
 });
 
 //!buscar aprovados
-router.get('/aprovados/', async (req, res) => {
+router.get('/aprovados', async (req, res) => {
     try {
         const transacao = await RepositorioTransacao.BuscarStatus(1);
         res.json(transacao);
@@ -41,7 +41,7 @@ router.get('/aprovados/', async (req, res) => {
 });
 
 //!buscar Reprovados
-router.get('/reprovados/', async (req, res) => {
+router.get('/reprovados', async (req, res) => {
     try {
         const transacao = await RepositorioTransacao.BuscarStatus(2);
         res.json(transacao);
@@ -52,7 +52,7 @@ router.get('/reprovados/', async (req, res) => {
 });
 
 //!buscar Em analise
-router.get('/analise/', async (req, res) => {
+router.get('/analise', async (req, res) => {
     try {
         const transacao = await RepositorioTransacao.BuscarStatus(3);
         res.json(transacao);

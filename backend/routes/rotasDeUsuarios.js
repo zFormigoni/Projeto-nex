@@ -60,7 +60,6 @@ router.post('/login', async (req, res) => {
     try {
         //! Verifica se o usuário existe pelo e-mail
         const usuario = await RepositorioUsuarios.BuscarEmail(email);
-        const tipo = usuario.dataValues.tipo;
 
         if (usuario == null) {
             return res.status(404).json({ mensagem: 'Usuário não encontrado' });
@@ -69,7 +68,7 @@ router.post('/login', async (req, res) => {
         if (usuario.dataValues.senha == senha) {
             res.status(200).json({
                 mensagem: 'Login bem-sucedido',
-                tipo: tipo,
+                usuario: usuario,
             });
         } else {
             res.status(404).json({

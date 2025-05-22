@@ -6,7 +6,7 @@ import FiltroInput from '../filtros/FiltroInput';
 import CheckboxFiltro from '../filtros/CheckboxFiltroStatus';
 
 function Admin() {
-    const URL = 'http://localhost:3001/';
+    const URL = 'http://localhost:3001/transacoes/';
     const [dados, setDados] = useState(null);
     const [cpfFiltro, setCpfFiltro] = useState('');
     const [statusFiltro, setStatusFiltro] = useState('');
@@ -14,6 +14,8 @@ function Admin() {
     const [dataFim, setDataFim] = useState('');
     const [valorInicio, setValorInicio] = useState('');
     const [valorFinal, setValorFinal] = useState('');
+    //!no momento nao é necessario usar o cpf nessa pagina
+    //const cpf = localStorage.getItem('cpfUsuario');
 
     const validaDados = (dados) => {
         if (!dados) {
@@ -72,7 +74,7 @@ function Admin() {
         } else if (dataInicio !== '' || dataFim !== '') {
             filtrarDados();
         } else {
-            buscardados('http://localhost:3001/todos');
+            buscardados(`${URL}todos`);
         }
     }, [cpfFiltro, statusFiltro, dataInicio, dataFim, dataInicio, dataFim]);
 

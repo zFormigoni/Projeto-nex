@@ -10,7 +10,6 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Login:', { email, senha });
         try {
             const resposta = await fetch(
                 'http://localhost:3001/usuarios/login',
@@ -23,10 +22,16 @@ function Login() {
                 }
             );
             const resultado = await resposta.json();
+            const tipoUsuario = resultado.usuario.tipo;
+            console.log(resultado.usuario.nome);
+
+            localStorage.setItem(`nomeUsuario`, resultado.usuario.nome);
+            localStorage.setItem('cpfUsuario', resultado.usuario.cpf); //? salva no localstorage para usar na pagina de usuario
+
             if (resposta.status === 200) {
-                if (resultado.tipo == 1) {
+                if (tipoUsuario == 1) {
                     navigate('/admin'); //? Redireciona para pagina de adm
-                } else if (resultado.tipo == 2) {
+                } else if (tipoUsuario == 2) {
                     navigate('/user'); //? Redireciona para pagina de usuario
                 }
             } else {
