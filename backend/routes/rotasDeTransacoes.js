@@ -62,4 +62,10 @@ router.get('/analise', async (req, res) => {
     }
 });
 
+//! ADICIONAR ITENS DA PLANILHA
+router.post('/adicionar', async (req, res) => {
+    console.log(req.body);
+    res.status(200).json({ mensagem: 'Dados recebidos com sucesso' }); //const dados = Excel.retornarDados('./pasta1.xlsx', 0);
+});
+
 module.exports = router;

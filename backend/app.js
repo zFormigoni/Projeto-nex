@@ -10,7 +10,7 @@ const RepositorioUsuarios = require('./db/RepositorioUsuarios');
 const Usuario = require('./model/usuario');
 
 //? pega os dados da planilha
-const dados = Excel.retornarDados('./pasta1.xlsx', 0);
+//const dados = Excel.retornarDados('./pasta1.xlsx', 0);
 
 //! Transacao
 //RepositorioTransacao.iniciarConexao(); //? CRIA A TABELA DE USUARIO SE NAO HOUVER

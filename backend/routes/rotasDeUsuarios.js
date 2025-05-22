@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const RepositorioUsuarios = require('../db/RepositorioUsuarios');
+const multer = require('multer');
+const path = require('path');
 
 function limparCPF(cpf) {
     const numeros = String(cpf).replace(/\D/g, ''); // Remove tudo que não é dígito
@@ -77,6 +79,42 @@ router.post('/login', async (req, res) => {
         }
     } catch (erro) {
         console.error('Erro ao realizar login:', erro);
+        res.status(500).json({ mensagem: 'Erro interno no servidor' });
+    }
+});
+
+//! Rota que recebe o upload
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(
+            null,
+            `C:/Users/user/Projetos_de_cursos/Projeto nex/backend/uploads/`
+        ); // pasta onde vai salvar o arquivo
+    },
+    filename: function (req, file, cb) {
+        // para evitar conflitos, você pode renomear o arquivo
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const ext = path.extname(file.originalname); // mantém a extensão
+        cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    },
+});
+
+const upload = multer({ storage: storage });
+router.post('/upload', upload.single('file'), async (req, res) => {
+    try {
+        // 'file' é o nome do campo do formData
+        if (!req.file) {
+            return res.status(400).json({ mensagem: 'Nenhum arquivo enviado' });
+        }
+
+        // req.file contém informações do arquivo salvo
+        res.status(200).json({
+            mensagem: 'Arquivo recebido com sucesso',
+            nomeSalvo: req.file.filename,
+            caminho: req.file.path,
+        });
+    } catch (erro) {
         res.status(500).json({ mensagem: 'Erro interno no servidor' });
     }
 });
