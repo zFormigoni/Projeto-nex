@@ -36,24 +36,25 @@ router.post('/cadastrar', async (req, res) => {
             tipo: 2, //? por padrao so vao ser cadastrados usuarios comuns
         };
 
-        /* console.log(novoUsuario);
-        const teste = new Usuario(
-            12312312312,
-            'vitor',
-            'vitor@gmail.com',
-            'senha',
-            1
-        );
-        console.log(`teste`, teste); */
-        RepositorioUsuarios.CriarItem(novoUsuario);
+        const resposta = await RepositorioUsuarios.CriarItem(novoUsuario);
 
-        res.status(201).json({
-            mensagem: 'Usuário cadastrado com sucesso',
-            usuario: novoUsuario,
-        });
+        if (resposta == 1) {
+            res.status(201).json({
+                mensagem: `Usuário cadastrado com sucesso`,
+            });
+        }
+        if (resposta == 2) {
+            res.status(409).json({
+                mensagem: `Usuario ja cadastrado`,
+            });
+        } else {
+            res.status(500).json({
+                mensagem: `Erro ao cadastrar usuario`,
+            });
+        }
     } catch (error) {
         console.error('Erro ao cadastrar usuário:', error);
-        res.status(500).json({ erro: 'Erro ao cadastrar usuário' });
+        res.status(500).json({ mensagem: 'Erro ao cadastrar usuário' });
     }
 });
 

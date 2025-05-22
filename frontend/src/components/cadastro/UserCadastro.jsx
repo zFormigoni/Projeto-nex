@@ -8,6 +8,7 @@ function UserCadastro() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [cpfErro, setCpfErro] = useState(false);
+    const [mensagem, setMensagem] = useState(false);
     const navigate = useNavigate(); // Hook de navegação para redirecionamento
 
     const handleSubmit = async (e) => {
@@ -29,16 +30,26 @@ function UserCadastro() {
                         body: JSON.stringify(dados),
                     }
                 );
-
+                //TODO: verificar motivo do erro aparecer no constole
                 const resultado = await resposta.json();
-                console.log('Usuário cadastrado:', resultado);
-
-                // Redireciona para login ou exibe mensagem de sucesso
+                if (resposta.status === 201) {
+                    setMensagem(
+                        <span style={{ color: 'green' }}>
+                            {resultado.mensagem}
+                        </span>
+                    );
+                    await new Promise((resolve) => setTimeout(resolve, 5000));
+                    navigate('/'); //? Redireciona para login
+                } else {
+                    setMensagem(
+                        <span style={{ color: 'red' }}>
+                            {resultado.mensagem}
+                        </span>
+                    );
+                }
             } catch (erro) {
-                console.error('Erro no cadastro:', erro);
+                console.log('Erro no cadastro:', erro);
             }
-
-            //navigate('/');
         }
     };
 
@@ -129,6 +140,7 @@ function UserCadastro() {
                     />
                 </div>
                 <button type="submit">Cadastrar</button>
+                {mensagem && <div>{mensagem}</div>}
             </form>
         </div>
     );

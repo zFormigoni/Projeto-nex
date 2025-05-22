@@ -4,14 +4,10 @@ const database = require('./db');
 const ConexaoUsuario = database.define(
     'Usuario',
     {
-        id: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-        },
         cpf: {
             type: Sequelize.BIGINT,
             allowNull: false,
+            primaryKey: true,
         },
         nome: {
             type: Sequelize.STRING,

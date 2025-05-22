@@ -19,9 +19,21 @@ const RepositorioUsuarios = {
         try {
             await ConexaoUsuario.create(item);
             mostrarResposta('Item Criado');
+            return 1; //! 1 == ok
         } catch (erro) {
+            if (
+                erro.name === 'SequelizeUniqueConstraintError' ||
+                erro.message.includes('duplicate key') ||
+                erro.message.includes('UNIQUE constraint failed')
+            ) {
+                mostrarResposta(
+                    'Erro: Item duplicado (CPF ou e-mail já cadastrado)'
+                );
+                return 2; //! 2 == dubplicado
+            }
             mostrarResposta(erro);
             mostrarResposta('Erro ao criar item');
+            return 3; //! 3 == outro erro
         }
     },
 
