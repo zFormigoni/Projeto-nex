@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Login.css'; // Arquivo opcional para estilos
-import { Link } from 'react-router-dom';
+import './User.css'; // Arquivo opcional para estilos
 
-function Login() {
+function UserCadastro() {
+    const [CPF, setCPF] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -14,8 +14,18 @@ function Login() {
 
     return (
         <div className="login-container">
-            <h2>Login</h2>
+            <h2>CADASTRO</h2>
             <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Cpf:</label>
+                    <br />
+                    <input
+                        type="CPF"
+                        value={CPF}
+                        onChange={(e) => setCPF(e.target.value)}
+                        required
+                    />
+                </div>
                 <div>
                     <label>Email:</label>
                     <br />
@@ -38,12 +48,8 @@ function Login() {
                 </div>
                 <button type="submit">Entrar</button>
             </form>
-
-            <div>
-                <Link to="/cadastro">Fazer cadastro</Link>
-            </div>
         </div>
     );
 }
 
-export default Login;
+export default UserCadastro;

@@ -3,6 +3,7 @@ import LoginPage from './pages/Loginpage';
 import AdmPage from './pages/AdminPage';
 import UserPage from './pages/UserPage';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import UserCadastro from './components/cadastro/UserCadastro';
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                         <Route path="/" element={<LoginPage />} />
                         <Route path="/admin" element={<AdmPage />} />
                         <Route path="/user" element={<UserPage />} />
+                        <Route path="/cadastro" element={<UserCadastro />} />
                     </Routes>
                 </div>
             </Router>
