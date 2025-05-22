@@ -20,7 +20,8 @@ const RepositorioUsuarios = {
             await ConexaoUsuario.create(item);
             mostrarResposta('Item Criado');
         } catch (erro) {
-            MostrarResposta('Erro ao criar item');
+            mostrarResposta(erro);
+            mostrarResposta('Erro ao criar item');
         }
     },
 

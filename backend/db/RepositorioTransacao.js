@@ -20,7 +20,7 @@ const RepositorioTransacao = {
             await ConexaoTransacao.create(item);
             mostrarResposta('Item Criado');
         } catch (erro) {
-            MostrarResposta('Erro ao criar item');
+            mostrarResposta('Erro ao criar item');
         }
     },
 

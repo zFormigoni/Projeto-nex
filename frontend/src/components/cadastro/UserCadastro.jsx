@@ -4,23 +4,41 @@ import { useNavigate } from 'react-router-dom';
 
 function UserCadastro() {
     const [nome, setNome] = useState('');
-    const [CPF, setCPF] = useState('');
+    const [cpf, setCpf] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [cpfErro, setCpfErro] = useState(false);
     const navigate = useNavigate(); // Hook de navegação para redirecionamento
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (CPF.length !== 14) {
+        if (cpf.length !== 14) {
             setCpfErro(true); // Marca o erro de CPF
         } else {
             setCpfErro(false); // Remove o erro se o CPF for válido
-            console.log('Cadastro:', { nome, CPF, email, senha });
+            const dados = { nome, cpf, email, senha };
 
-            navigate('/');
+            try {
+                const resposta = await fetch(
+                    'http://localhost:3001/usuarios/cadastrar',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dados),
+                    }
+                );
 
-            //! Aqui fazer a requisição para API de autenticação
+                const resultado = await resposta.json();
+                console.log('Usuário cadastrado:', resultado);
+
+                // Redireciona para login ou exibe mensagem de sucesso
+            } catch (erro) {
+                console.error('Erro no cadastro:', erro);
+            }
+
+            //navigate('/');
         }
     };
 
@@ -52,7 +70,7 @@ function UserCadastro() {
             );
         }
 
-        setCPF(value);
+        setCpf(value);
     };
 
     const formatNome = (inputValue) => {
@@ -81,7 +99,7 @@ function UserCadastro() {
                         <label>CPF:</label>
                         <input
                             type="text"
-                            value={CPF}
+                            value={cpf}
                             onChange={(e) => formatCPF(e.target.value)}
                             style={{ borderColor: cpfErro ? 'red' : 'black' }}
                             maxLength={14}
