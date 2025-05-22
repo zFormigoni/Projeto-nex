@@ -13,6 +13,17 @@ function Filtros({ dados, tipo }) {
     const [valorInicio, setValorInicio] = useState('');
     const [valorFinal, setValorFinal] = useState('');
 
+    function algumFiltroAtivo() {
+        return (
+            cpfFiltro !== '' ||
+            statusFiltro !== '' ||
+            dataInicio !== '' ||
+            dataFim !== '' ||
+            valorInicio !== '' ||
+            valorFinal !== ''
+        );
+    }
+
     const FiltroCPF = () => {
         return (
             <FiltroInput
@@ -84,14 +95,14 @@ function Filtros({ dados, tipo }) {
     const filtrosCorretos = (tipo) => {
         if (tipo == 2) {
             return (
-                <div>
+                <div className="Filtro-usuario">
                     <FiltroData />
                     <FiltroValor />
                 </div>
             );
         } else if (tipo == 1) {
             return (
-                <div>
+                <div className="Filtro-adm">
                     <FiltroCPF />
                     <FiltroData />
                     <FiltroValor />
@@ -218,7 +229,13 @@ function Filtros({ dados, tipo }) {
     return (
         <div>
             {filtrosCorretos(tipo)}
-            <TabelaTransacoes dados={dadosFiltrados} />
+            <TabelaTransacoes
+                dados={
+                    dadosFiltrados.length == 0 && algumFiltroAtivo() == false
+                        ? dados
+                        : dadosFiltrados
+                }
+            />
         </div>
     );
 }

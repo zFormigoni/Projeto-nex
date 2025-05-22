@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import TabelaTransacoes from '../transacoes/TabelaTransacoes';
 import './Adm.css';
 import Filtros from '../filtros/Filtros';
+import UploadExcel from '../excel/InputPlanilha';
 
 function Admin() {
     const URL = 'http://localhost:3001/transacoes/todos';
@@ -35,6 +35,7 @@ function Admin() {
         <div className="admin-page ">
             <h1>Relatório de Transações </h1>
             <h2>administrador : {nome}</h2>
+            <UploadExcel />
 
             <Filtros dados={dados} tipo={1} />
         </div>

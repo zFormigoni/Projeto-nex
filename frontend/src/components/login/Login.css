@@ -5,7 +5,7 @@
     border: 2px solid #ccc;
     border-radius: 15px;
     text-align: center;
-    font-size: 22px; /* Aumenta o texto padrão */
+    font-size: 22px;
 }
 
 .login-container button {
@@ -25,7 +25,7 @@
 }
 
 .login-container input {
-    width: 80%; /* ou 60%, como preferir */
+    width: 80%;
     margin: 16px auto;
     display: block;
     padding: 18px;

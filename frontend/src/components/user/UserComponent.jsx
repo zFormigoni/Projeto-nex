@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import TabelaTransacoes from '../transacoes/TabelaTransacoes';
 import CarteiraUsuario from './CarteiraUsuario';
 import './User.css';
 import Filtros from '../filtros/Filtros';
