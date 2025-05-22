@@ -15,7 +15,7 @@ const Repositorio = require('./db/Repositorio');
 //! Criação do servidor Express
 const app = express();
 const porta = 3001;
-//app.use(cors()); //? Habilita CORS para permitir que o frontend acesse a API
+app.use(cors()); //? Habilita CORS para permitir que o frontend acesse a API
 app.use(express.json());
 app.use('/', transacoesRoute); //? Configuração das rotas
 

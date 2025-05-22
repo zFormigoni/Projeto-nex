@@ -1,3 +1,5 @@
+//TODO: Criar filtro de valor
+
 import React, { useEffect, useState } from 'react';
 import TabelaTransacoes from '../transacoes/TabelaTransacoes';
 import FiltroInput from '../filtros/FiltroInput';
@@ -10,6 +12,8 @@ function Admin() {
     const [statusFiltro, setStatusFiltro] = useState('');
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
+    const [valorInicio, setValorInicio] = useState('');
+    const [valorFinal, setValorFinal] = useState('');
 
     const validaDados = (dados) => {
         if (!dados) {
@@ -21,24 +25,35 @@ function Admin() {
         }
     };
 
-    //TODO: Ajustar filtro por data
-    /* const filtrarDados = (dados, dataInicio, dataFinal) => {
-        if (!dados) return [];
+    const converterParaNumeroExcel = (dataString) => {
+        const data = new Date(dataString);
+        if (isNaN(data)) return null;
 
+        const base = new Date(1899, 11, 30); // Base do Excel (30 de dezembro de 1899)
+        const diff = (data - base) / (1000 * 60 * 60 * 24); // diferença em dias
+        return Math.floor(diff) + 1;
+    };
+
+    //TODO: Ajustar filtro por data
+    const filtrarDados = () => {
+        if (!dados || !Array.isArray(dados)) return; //? se nao for array nao filtra
+
+        const dataIncioCONVERTIDA = converterParaNumeroExcel(dataInicio);
+        const dataFinalCONVERTIDA = converterParaNumeroExcel(dataFim);
+        //* FUNCIONA dataIncioCONVERTIDA <= dados[0].data_transacao &&                 dataFinalCONVERTIDA >= dados[0].data_transacao
         const filtrados = [];
 
-        for (let i = 0; i < dados.length; i++) {
-            const item = dados[i]; //? pega um item da lista
-            const dataItem = new Date(item.data_transacao); //? pega a data do item
-
-            if (dataInicio && dataItem < dataInicio) continue;
-            if (dataFinal && dataItem > dataFinal) continue;
-
-            filtrados.push(item);
+        for (const item of dados) {
+            const dataDoItem = item.data_transacao;
+            if (
+                dataIncioCONVERTIDA <= dataDoItem &&
+                dataFinalCONVERTIDA >= dataDoItem
+            ) {
+                filtrados.push(item);
+            }
         }
-
-        return filtrados;
-    }; */
+        setDados(filtrados);
+    };
 
     const buscardados = (URL) => {
         fetch(URL)
@@ -54,23 +69,22 @@ function Admin() {
             buscardados(`${URL}CPF/${cpfFiltro}`);
         } else if (statusFiltro !== '') {
             buscardados(`${URL}${statusFiltro}`);
+        } else if (dataInicio !== '' || dataFim !== '') {
+            filtrarDados();
         } else {
             buscardados('http://localhost:3001/todos');
         }
-    }, [cpfFiltro, statusFiltro, dataInicio, dataFim]);
+    }, [cpfFiltro, statusFiltro, dataInicio, dataFim, dataInicio, dataFim]);
 
     return (
         <div>
             <h1>Relatório de Transações</h1>
-
             <FiltroInput
                 label="CPF" //!Filtro CPF
                 value={cpfFiltro}
                 onChange={(e) => setCpfFiltro(e.target.value)}
                 placeholder="Buscar CPF"
             />
-
-            {/* //TODO: Ajustar filtro por data 
             <FiltroInput
                 type="date"
                 label="Data de Inicio" //!Filtro Data de inicio
@@ -78,20 +92,20 @@ function Admin() {
                 onChange={(e) => setDataInicio(e.target.value)}
                 placeholder="Data de Inicio"
             />
-
+            {dataInicio}
+            {'   '}
+            {converterParaNumeroExcel(dataInicio)}
             <FiltroInput
                 type="date"
                 label="Data Final" //!Filtro Data Final
                 value={dataFim}
                 onChange={(e) => setDataFim(e.target.value)}
                 placeholder="Data Final"
-            /> */}
-
+            />
             <CheckboxFiltro
                 valorSelecionado={statusFiltro}
                 onChange={setStatusFiltro}
             />
-
             <TabelaTransacoes dados={dados} />
         </div>
     );

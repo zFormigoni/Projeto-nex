@@ -9,6 +9,7 @@ function TabelaTransacoes({ dados }) {
         <table border="5" cellPadding="8">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>CPF</th>
                     <th>Descrição</th>
                     <th>Data</th>
