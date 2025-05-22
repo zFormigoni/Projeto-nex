@@ -2,19 +2,23 @@ const Sequelize = require('sequelize');
 const database = require('./db');
 
 const Conexao = database.define(
-    'transacao',
+    'Transacao',
     {
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         cpf: {
             type: Sequelize.BIGINT,
             allowNull: false,
-            primaryKey: true,
         },
         descricao: {
             type: Sequelize.STRING,
             allowNull: false,
         },
         data_transacao: {
-            type: Sequelize.DATEONLY,
+            type: Sequelize.INTEGER,
             allowNull: false,
         },
         pontos: {

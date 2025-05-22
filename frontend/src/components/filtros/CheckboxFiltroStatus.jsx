@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function CheckboxFiltro({ opcoes, valorSelecionado, onChange }) {
+const opcoesStatus = [
+    { label: 'Todos', value: '' },
+    { label: 'Aprovado', value: 'aprovados/' },
+    { label: 'Reprovado', value: 'reprovados/' },
+    { label: 'Em avaliação', value: 'analise/' },
+];
+
+function CheckboxFiltro({ valorSelecionado, onChange }) {
     return (
         <div style={{ display: 'flex', gap: '15px' }}>
-            {opcoes.map((opcao) => (
+            {opcoesStatus.map((opcao) => (
                 <label key={opcao.value}>
                     <input
                         type="checkbox"

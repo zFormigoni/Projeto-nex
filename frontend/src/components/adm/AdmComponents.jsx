@@ -11,13 +11,6 @@ function Admin() {
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
 
-    const opcoesStatus = [
-        { label: 'Todos', value: '' },
-        { label: 'Aprovado', value: 'aprovados/' },
-        { label: 'Reprovado', value: 'reprovados/' },
-        { label: 'Em avaliação', value: 'analise/' },
-    ];
-
     const validaDados = (dados) => {
         if (!dados) {
             setDados([]);
@@ -28,16 +21,32 @@ function Admin() {
         }
     };
 
+    //TODO: Ajustar filtro por data
+    /* const filtrarDados = (dados, dataInicio, dataFinal) => {
+        if (!dados) return [];
+
+        const filtrados = [];
+
+        for (let i = 0; i < dados.length; i++) {
+            const item = dados[i]; //? pega um item da lista
+            const dataItem = new Date(item.data_transacao); //? pega a data do item
+
+            if (dataInicio && dataItem < dataInicio) continue;
+            if (dataFinal && dataItem > dataFinal) continue;
+
+            filtrados.push(item);
+        }
+
+        return filtrados;
+    }; */
+
     const buscardados = (URL) => {
         fetch(URL)
             .then((response) => response.json())
             .then((data) => {
                 validaDados(data);
-                console.log(data);
             })
-            .catch((error) =>
-                console.error('Erro ao buscar dados por CPF:', error)
-            );
+            .catch((error) => console.error('Erro ao buscar dados', error));
     };
 
     useEffect(() => {
@@ -48,7 +57,7 @@ function Admin() {
         } else {
             buscardados('http://localhost:3001/todos');
         }
-    }, [cpfFiltro, statusFiltro]);
+    }, [cpfFiltro, statusFiltro, dataInicio, dataFim]);
 
     return (
         <div>
@@ -61,6 +70,7 @@ function Admin() {
                 placeholder="Buscar CPF"
             />
 
+            {/* //TODO: Ajustar filtro por data 
             <FiltroInput
                 type="date"
                 label="Data de Inicio" //!Filtro Data de inicio
@@ -75,10 +85,9 @@ function Admin() {
                 value={dataFim}
                 onChange={(e) => setDataFim(e.target.value)}
                 placeholder="Data Final"
-            />
+            /> */}
 
             <CheckboxFiltro
-                opcoes={opcoesStatus}
                 valorSelecionado={statusFiltro}
                 onChange={setStatusFiltro}
             />

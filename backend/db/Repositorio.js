@@ -8,27 +8,17 @@ const mostrarResposta = (resposta) => {
 
 const Repositorio = {
     //! verifica se as tabelas do banco e as da transacao sao as mesmas
-    /* async iniciarConexao() {
-        await Conexao.sync(); 
-    }, */
+    async iniciarConexao() {
+        await Conexao.sync();
+    },
 
     //? CREATE
     async CriarItem(item) {
         try {
-            const existente = await Conexao.findOne({
-                where: { cpf: item.cpf },
-            });
-
-            if (existente) {
-                mostrarResposta('Item já existe');
-                return;
-            }
-
-            await Conexao.create(item.list());
-
+            await Conexao.create(item);
             mostrarResposta('Item Criado');
         } catch (erro) {
-            mostrarResposta('Erro ao criar item');
+            MostrarResposta('Erro ao criar item');
         }
     },
 

@@ -4,17 +4,18 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db/db'); //? Conexão com o banco de dados
 const transacoesRoute = require('./routes/rotasDeTransacoes'); //? Rota para transações
+const Repositorio = require('./db/Repositorio');
 
 //? pega os dados da planilha
-//const dados = Excel.retornarDados('./pasta1.xlsx', 0);
-//? cadastra os dados no banco de dados
-//Formatacao.cadastrarDados(dados, 1);
+const dados = Excel.retornarDados('./pasta1.xlsx', 0);
+//Repositorio.iniciarConexao(); //? CRIA A TABELA SE NAO HOUVER
+
+Formatacao.cadastrarDados(dados, 1); //? cadastra os dados no banco de dados
 
 //! Criação do servidor Express
-
 const app = express();
 const porta = 3001;
-app.use(cors()); // Habilita CORS para permitir que o frontend acesse a API
+app.use(cors()); //? Habilita CORS para permitir que o frontend acesse a API
 app.use(express.json());
 
 // Configuração das rotas
