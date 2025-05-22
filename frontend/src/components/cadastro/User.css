@@ -1,4 +1,4 @@
-.login-container {
+.cadastro-container {
     width: 500px;
     margin: 100px auto;
     padding: 40px;
@@ -8,7 +8,29 @@
     font-size: 22px; /* Aumenta o texto padrão */
 }
 
-.login-container button {
+.cadastro-container input {
+    width: 80%;
+    margin: 16px auto;
+    display: block;
+    padding: 18px;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 1px solid #999;
+    text-align: center;
+}
+
+.nomeEcpf {
+    display: flex;
+    gap: 20px; /* espaço entre os inputs */
+    align-items: flex-start;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.cadastro-container button {
     width: 100%;
     padding: 20px;
     font-size: 22px;
@@ -20,17 +42,6 @@
     transition: background-color 0.3s;
 }
 
-.login-container button:hover {
+.cadastro-container button:hover {
     background-color: #45a049;
-}
-
-.login-container input {
-    width: 80%; /* ou 60%, como preferir */
-    margin: 16px auto;
-    display: block;
-    padding: 18px;
-    font-size: 20px;
-    border-radius: 8px;
-    border: 1px solid #999;
-    text-align: center;
 }

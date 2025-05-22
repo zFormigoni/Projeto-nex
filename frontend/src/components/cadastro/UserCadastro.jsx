@@ -1,34 +1,99 @@
 import React, { useState } from 'react';
 import './User.css'; // Arquivo opcional para estilos
+import { useNavigate } from 'react-router-dom';
 
 function UserCadastro() {
+    const [nome, setNome] = useState('');
     const [CPF, setCPF] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [cpfErro, setCpfErro] = useState(false);
+    const navigate = useNavigate(); // Hook de navegação para redirecionamento
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Login:', { email, senha });
-        // Aqui você pode fazer a requisição para sua API de autenticação
+        if (CPF.length !== 14) {
+            setCpfErro(true); // Marca o erro de CPF
+        } else {
+            setCpfErro(false); // Remove o erro se o CPF for válido
+            console.log('Cadastro:', { nome, CPF, email, senha });
+
+            navigate('/');
+
+            //! Aqui fazer a requisição para API de autenticação
+        }
+    };
+
+    const formatCPF = (inputValue) => {
+        //? Remove tudo que não for número
+        let value = inputValue.replace(/\D/g, '');
+
+        //? Corta para no máximo 11 dígitos
+        if (value.length > 11) {
+            value = value.slice(0, 11);
+        }
+
+        //?  log para ver os pontos de corte
+        /*if (value.length === 3 || value.length === 6 || value.length === 9) {
+            console.log('Ponto de corte:', value);
+        } */
+
+        //? Aplica a máscara
+        if (value.length > 3) {
+            value = value.replace(/(\d{3})(\d)/, '$1.$2');
+        }
+        if (value.length > 6) {
+            value = value.replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+        }
+        if (value.length > 9) {
+            value = value.replace(
+                /(\d{3})\.(\d{3})\.(\d{3})(\d{1,2})/,
+                '$1.$2.$3-$4'
+            );
+        }
+
+        setCPF(value);
+    };
+
+    const formatNome = (inputValue) => {
+        let formattedName = inputValue.replace(
+            /[^a-zA-ZáéíóúãõâêîôûàèìòùäëïöüçÁÉÍÓÚÃÕÂÊÎÔÛÀÈÌÒÙÄËÏÖÜÇ ]+/g,
+            ''
+        );
+        setNome(formattedName);
     };
 
     return (
-        <div className="login-container">
+        <div className="cadastro-container">
             <h2>CADASTRO</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Cpf:</label>
-                    <br />
-                    <input
-                        type="CPF"
-                        value={CPF}
-                        onChange={(e) => setCPF(e.target.value)}
-                        required
-                    />
+                <div className="nomeEcpf">
+                    <div className="inputGroup">
+                        <label>Nome:</label>
+                        <input
+                            type="text"
+                            value={nome}
+                            onChange={(e) => formatNome(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>CPF:</label>
+                        <input
+                            type="text"
+                            value={CPF}
+                            onChange={(e) => formatCPF(e.target.value)}
+                            style={{ borderColor: cpfErro ? 'red' : 'black' }}
+                            maxLength={14}
+                            required
+                        />
+                        {cpfErro && (
+                            <span style={{ color: 'red' }}>CPF inválido.</span>
+                        )}
+                    </div>
                 </div>
                 <div>
                     <label>Email:</label>
-                    <br />
                     <input
                         type="email"
                         value={email}
@@ -38,7 +103,6 @@ function UserCadastro() {
                 </div>
                 <div>
                     <label>Senha:</label>
-                    <br />
                     <input
                         type="password"
                         value={senha}
@@ -46,7 +110,7 @@ function UserCadastro() {
                         required
                     />
                 </div>
-                <button type="submit">Entrar</button>
+                <button type="submit">Cadastrar</button>
             </form>
         </div>
     );
