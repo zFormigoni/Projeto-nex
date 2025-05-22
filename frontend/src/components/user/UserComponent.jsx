@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TabelaTransacoes from '../transacoes/TabelaTransacoes';
 import CarteiraUsuario from './CarteiraUsuario';
 import './User.css';
+import Filtros from '../filtros/Filtros';
 
 function User() {
     const cpf = localStorage.getItem('cpfUsuario');
@@ -47,14 +48,15 @@ function User() {
     };
 
     useEffect(() => {
-        buscardados(`${URL}`);
+        buscardados(URL);
     }, []);
     return (
         <div>
             <h1>Extrato de {nome}</h1>
+
             <div className="user-page">
                 <div className="painel-conteudo">
-                    <TabelaTransacoes dados={dados} />
+                    <Filtros dados={dados} tipo={2} />
                     <CarteiraUsuario pontos={pontos} valor={valor} />
                 </div>
             </div>

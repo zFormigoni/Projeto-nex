@@ -1,13 +1,18 @@
 .admin-page {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column; /* Empilha os elementos verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: flex-start; /* Alinha os itens do topo para baixo */
+    min-height: 100vh; /* Ocupa a altura toda da tela */
+    padding: 40px 20px;
+    background-color: #f9f9f9;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    gap: 20px; /* Espaço entre os elementos */
+    text-align: center;
 }
 
-.admin-page h1 {
-    font-size: 36px;
+.admin-page h1,
+.admin-page h2 {
+    margin: 0;
     color: #333;
 }

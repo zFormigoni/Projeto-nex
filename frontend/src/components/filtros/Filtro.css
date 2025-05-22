@@ -1,0 +1,16 @@
+.filtroData {
+    display: flex;
+    align-items: center;
+
+    gap: 8px; /* Reduz o espaço entre os campos */
+    align-items: center;
+    flex-wrap: wrap; /* Quebra de linha em telas pequenas */
+}
+.filtroValor {
+    display: flex;
+    align-items: center;
+
+    gap: 8px; /* Reduz o espaço entre os campos */
+    align-items: center;
+    flex-wrap: wrap; /* Quebra de linha em telas pequenas */
+}
