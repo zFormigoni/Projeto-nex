@@ -1,10 +1,8 @@
-//? Modelo da tabela
-
 const Sequelize = require('sequelize');
 const database = require('./db');
 
-const Conexao = database.define(
-    'Transacao',
+const ConexaoUsuario = database.define(
+    'Usuario',
     {
         id: {
             type: Sequelize.INTEGER,
@@ -15,36 +13,32 @@ const Conexao = database.define(
             type: Sequelize.BIGINT,
             allowNull: false,
         },
-        descricao: {
+        nome: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        data_transacao: {
-            type: Sequelize.INTEGER,
+        email: {
+            type: Sequelize.STRING,
             allowNull: false,
         },
-        pontos: {
-            type: Sequelize.INTEGER,
+        senha: {
+            type: Sequelize.STRING,
             allowNull: false,
         },
-        valor_monetario: {
-            type: Sequelize.DECIMAL(10, 2),
-            allowNull: false,
-        },
-        status: {
+        tipo: {
             type: Sequelize.INTEGER,
             allowNull: false,
             validate: {
                 isIn: {
-                    args: [[1, 2, 3]], //! 1 == aprovado -- 2 == em avaliacao -- 3 == em analise
-                    msg: 'Status deve ser 1, 2 ou 3',
+                    args: [[1, 2]], //! 1 == ADM -- 2 == Normal
+                    msg: 'Status deve ser 1, 2',
                 },
             },
         },
     },
     {
-        tableName: 'transacoes', // Nome da tabela no banco
+        tableName: 'usuarios', // Nome da tabela no banco
     }
 );
 
-module.exports = Conexao;
+module.exports = ConexaoUsuario;

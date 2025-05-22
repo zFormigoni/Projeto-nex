@@ -2,13 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
-const Repositorio = require('../db/Repositorio'); // BUSCAR ITENS NO BANCO
+const RepositorioTransacao = require('../db/RepositorioTransacao'); // BUSCAR ITENS NO BANCO
 
 //! busca todos
 router.get('/todos', async (req, res) => {
     try {
         // Buscar todas as transações no banco de dados
-        const transacoes = await Repositorio.BuscarTodos();
+        const transacoes = await RepositorioTransacao.BuscarTodos();
         res.json(transacoes); // Retorna as transações em formato JSON
     } catch (error) {
         console.error('Erro ao buscar transações:', error);
@@ -21,7 +21,7 @@ router.get('/cpf/:cpf', async (req, res) => {
     const { cpf } = req.params; // Pega o CPF da URL
 
     try {
-        const transacao = await Repositorio.BuscarCPF(cpf);
+        const transacao = await RepositorioTransacao.BuscarCPF(cpf);
         res.json(transacao);
     } catch (error) {
         console.error('Erro ao buscar transações:', error);
@@ -32,7 +32,7 @@ router.get('/cpf/:cpf', async (req, res) => {
 //!buscar aprovados
 router.get('/aprovados/', async (req, res) => {
     try {
-        const transacao = await Repositorio.BuscarStatus(1);
+        const transacao = await RepositorioTransacao.BuscarStatus(1);
         res.json(transacao);
     } catch (error) {
         console.error('Erro ao buscar transações:', error);
@@ -43,7 +43,7 @@ router.get('/aprovados/', async (req, res) => {
 //!buscar Reprovados
 router.get('/reprovados/', async (req, res) => {
     try {
-        const transacao = await Repositorio.BuscarStatus(2);
+        const transacao = await RepositorioTransacao.BuscarStatus(2);
         res.json(transacao);
     } catch (error) {
         console.error('Erro ao buscar transações:', error);
@@ -54,7 +54,7 @@ router.get('/reprovados/', async (req, res) => {
 //!buscar Em analise
 router.get('/analise/', async (req, res) => {
     try {
-        const transacao = await Repositorio.BuscarStatus(3);
+        const transacao = await RepositorioTransacao.BuscarStatus(3);
         res.json(transacao);
     } catch (error) {
         console.error('Erro ao buscar transações:', error);

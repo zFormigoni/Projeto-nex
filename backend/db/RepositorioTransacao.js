@@ -1,6 +1,6 @@
-//? Chamo o repositorio sempre que quero acessar o banco de dados
+//? Chamo o repositorio sempre que quero acessar o banco de dados Transacao
 
-const Conexao = require('./conexao');
+const ConexaoTransacao = require('./conexaoTransacao');
 
 const mostrarResposta = (resposta) => {
     console.log('-----------------------------------');
@@ -8,26 +8,26 @@ const mostrarResposta = (resposta) => {
     console.log('-----------------------------------');
 };
 
-const Repositorio = {
-    //! verifica se as tabelas do banco e as da transacao sao as mesmas
+const RepositorioTransacao = {
+    //? verifica se existe ou cria a tabela no banco de dados
     async iniciarConexao() {
-        await Conexao.sync();
+        await ConexaoTransacao.sync();
     },
 
-    //? CREATE
+    //! CREATE
     async CriarItem(item) {
         try {
-            await Conexao.create(item);
+            await ConexaoTransacao.create(item);
             mostrarResposta('Item Criado');
         } catch (erro) {
             MostrarResposta('Erro ao criar item');
         }
     },
 
-    //? READ
+    //! READ
     async BuscarTodos() {
         try {
-            const itens = await Conexao.findAll();
+            const itens = await ConexaoTransacao.findAll();
 
             //mostrarResposta(itens);
             return itens;
@@ -36,10 +36,10 @@ const Repositorio = {
         }
     },
 
-    //? busca por CPF
+    //! busca por CPF
     async BuscarCPF(cpf) {
         try {
-            const item = await Conexao.findAll({
+            const item = await ConexaoTransacao.findAll({
                 where: { cpf: cpf },
             });
             //mostrarResposta(item);
@@ -49,10 +49,10 @@ const Repositorio = {
         }
     },
 
-    //? busca por STATUS
+    //! busca por STATUS
     async BuscarStatus(status) {
         try {
-            const itens = await Conexao.findAll({
+            const itens = await ConexaoTransacao.findAll({
                 where: {
                     status: status,
                 },
@@ -63,10 +63,10 @@ const Repositorio = {
         }
     },
 
-    //? UPDATE
+    //! UPDATE
     async Atualizar(cpf, item) {
         try {
-            const resultado = await Conexao.update(item, {
+            const resultado = await ConexaoTransacao.update(item, {
                 where: { cpf: cpf },
             });
 
@@ -80,26 +80,29 @@ const Repositorio = {
         }
     },
 
-    //? DELETE por CPF
+    //! DELETE por CPF
     async Deletar(cpf) {
         try {
-            const existente = await Conexao.findOne({ where: { cpf: cpf } });
+            const existente = await ConexaoTransacao.findOne({
+                where: { cpf: cpf },
+            });
 
             if (!existente) {
                 mostrarResposta('Item não existe');
                 return;
             }
 
-            await Conexao.destroy({
+            await ConexaoTransacao.destroy({
                 where: {
                     cpf: cpf,
                 },
             });
             mostrarResposta('Item deletado');
         } catch (erro) {
+            mostrarResposta(erro);
             mostrarResposta('Erro ao Deletar item');
         }
     },
 };
 
-module.exports = Repositorio;
+module.exports = RepositorioTransacao;

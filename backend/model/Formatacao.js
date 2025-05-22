@@ -1,6 +1,6 @@
 //? Cria e formata o modelo de item para ser cadastrado no banco
 
-const Repositorio = require('../db/Repositorio');
+const Repositorio = require('../db/RepositorioTransacao');
 const Transacao = require('./transacao');
 
 const Formatacao = {
