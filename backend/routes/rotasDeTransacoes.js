@@ -81,7 +81,7 @@ router.get('/analise', autenticarToken, async (req, res) => {
 });
 
 //! ADICIONAR ITENS DA PLANILHA
-router.post('/adicionar', async (req, res) => {
+router.post('/adicionar', autenticarToken, async (req, res) => {
     try {
         const name = req.body.name;
         const path = req.body.path;
@@ -90,7 +90,9 @@ router.post('/adicionar', async (req, res) => {
         //await RepositorioTransacao.iniciarConexao(); //! USAR PARA CRIAR A TABELA APENAS
         await Formatacao.cadastrarDados(dados, 1);
 
-        res.status(200).json({ mensagem: 'Dados recebidos com sucesso' });
+        res.status(200).json({
+            mensagem: 'itens recebidos e adicionados adicionados',
+        });
     } catch (erro) {
         console.error('Erro na rota /adicionar:', erro);
         res.status(500).json({ mensagem: 'Erro interno no servidor' });

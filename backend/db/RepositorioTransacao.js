@@ -18,7 +18,6 @@ const RepositorioTransacao = {
     async CriarItem(item) {
         try {
             await ConexaoTransacao.create(item);
-            mostrarResposta('Item Criado');
         } catch (erro) {
             mostrarResposta('Erro ao criar item');
         }

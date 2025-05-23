@@ -13,26 +13,38 @@ function UploadExcel() {
         formData.append('file', file);
 
         try {
-            await fetch('http://localhost:3001/usuarios/upload', {
-                method: 'POST',
-                body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    newName = data.nomeSalvo;
-                    path = data.caminho;
-                    console.log('itens adicionados com sucesso!');
-                })
-                .catch(console.log('Erro para adicionar itens'));
+            const response = await fetch(
+                'http://localhost:3001/usuarios/upload',
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+            const data = await response.json();
+
+            newName = data.nomeSalvo;
+            path = data.caminho;
+
+            console.log(`${data.mensagem}`);
         } catch (error) {
-            console.error('Erro:', error);
+            console.log('Erro para adicionar itens', error);
         }
         try {
-            await fetch('http://localhost:3001/transacoes/adicionar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: newName, path: path }),
-            }).then((response) => response.json());
+            const response = await fetch(
+                'http://localhost:3001/transacoes/adicionar',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'token'
+                        )}`,
+                    },
+                    body: JSON.stringify({ name: newName, path: path }),
+                }
+            );
+            const data = await response.json();
+            console.log(data.mensagem);
         } catch (error) {
             console.error('Erro:', error);
         }

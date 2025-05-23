@@ -12,5 +12,4 @@ lista com todas as transacoes, vai dar acesso negado por conta do JWT
 https://github.com/Nex-Digital/Desafio-Full-Stack-2
 link do desafio
 
-ajustar rota do cadastro
 validar se usuario existe
