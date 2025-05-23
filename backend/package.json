@@ -4,7 +4,7 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "start-backend": "node app"
+        "start-backend": "node server"
     },
     "author": "",
     "license": "ISC",
@@ -12,6 +12,7 @@
         "backend": "file:",
         "cors": "^2.8.5",
         "express": "^5.1.0",
+        "jsonwebtoken": "^9.0.2",
         "multer": "^2.0.0",
         "mysql2": "^3.14.1",
         "sequelize": "^6.37.7",

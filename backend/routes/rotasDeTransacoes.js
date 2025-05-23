@@ -5,9 +5,23 @@ const router = express.Router();
 const RepositorioTransacao = require('../db/RepositorioTransacao'); // BUSCAR ITENS NO BANCO
 const Formatacao = require('../model/Formatacao');
 const Excel = require('../model/excel');
+const jwt = require('jsonwebtoken');
+//? chave/codigo de autenticacao
+const SEGREDO = 'projeto_nex';
+
+function autenticarToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    jwt.verify(token, SEGREDO, (err, decoded) => {
+        if (err) return res.status(401).end();
+
+        req.cpf = decoded.cpf;
+        next();
+    });
+}
 
 //! busca todos
-router.get('/todos', async (req, res) => {
+router.get('/todos', autenticarToken, async (req, res) => {
     try {
         // Buscar todas as transações no banco de dados
         const transacoes = await RepositorioTransacao.BuscarTodos();

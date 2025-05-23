@@ -10,7 +10,12 @@ function Admin() {
     const [dados, setDados] = useState(null);
 
     const buscardados = (URL) => {
-        fetch(URL)
+        fetch(URL, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 validaDados(data);

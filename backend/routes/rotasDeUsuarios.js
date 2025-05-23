@@ -3,6 +3,10 @@ const router = express.Router();
 const RepositorioUsuarios = require('../db/RepositorioUsuarios');
 const multer = require('multer');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+
+//? chave/codigo de autenticacao
+const SEGREDO = 'projeto_nex';
 
 function limparCPF(cpf) {
     const numeros = String(cpf).replace(/\D/g, ''); // Remove tudo que não é dígito
@@ -67,11 +71,20 @@ router.post('/login', async (req, res) => {
         if (usuario == null) {
             return res.status(404).json({ mensagem: 'Usuário não encontrado' });
         }
+
         //TODO: FAZER VALIDACAO COM JWT
         if (usuario.dataValues.senha == senha) {
-            res.status(200).json({
-                mensagem: 'Login bem-sucedido',
+            const token = jwt.sign({ cpf: usuario.dataValues.cpf }, SEGREDO, {
+                expiresIn: 300,
+            });
+
+            //! se quebrar volta o codigo pra isso
+            // res.status(200).json({
+            return res.json({
+                /* mensagem: 'Login bem-sucedido',*/
                 usuario: usuario,
+                auth: true,
+                token,
             });
         } else {
             res.status(404).json({

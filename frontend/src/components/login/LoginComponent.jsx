@@ -23,13 +23,14 @@ function Login() {
             );
             const resultado = await resposta.json();
             const tipoUsuario = resultado.usuario.tipo;
-            console.log(resultado.usuario.nome);
+
+            localStorage.setItem(`token`, resultado.token);
 
             localStorage.setItem(`nomeUsuario`, resultado.usuario.nome);
             localStorage.setItem('cpfUsuario', resultado.usuario.cpf); //? salva no localstorage para usar na pagina de usuario
 
             if (resposta.status === 200) {
-                if (tipoUsuario == 1) {
+                if (tipoUsuario === 1) {
                     navigate('/admin'); //? Redireciona para pagina de adm
                 } else if (tipoUsuario == 2) {
                     navigate('/user'); //? Redireciona para pagina de usuario
