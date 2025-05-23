@@ -11,11 +11,11 @@ function App() {
             <Router>
                 <div>
                     <nav>
-                        <Link to="/login">Login</Link>{' '}
+                        <Link to="/">Login</Link>{' '}
                     </nav>
 
                     <Routes>
-                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/" element={<LoginPage />} />
                         <Route path="/admin" element={<AdmPage />} />
                         <Route path="/user" element={<UserPage />} />
                         <Route path="/cadastro" element={<UserCadastro />} />
