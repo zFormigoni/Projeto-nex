@@ -1,6 +1,6 @@
 para iniciar o backend execute (start-backend)
 
-para iniciar o frontend execute (start-backend)
+para iniciar o frontend execute (start-frontend)
 
 Links uteis
 http://localhost:3001/usuarios/todos
