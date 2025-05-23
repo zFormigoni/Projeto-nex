@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const RepositorioTransacao = require('../db/RepositorioTransacao'); // BUSCAR ITENS NO BANCO
+const Formatacao = require('../model/Formatacao');
+const Excel = require('../model/excel');
 
 //! busca todos
 router.get('/todos', async (req, res) => {
@@ -64,8 +66,21 @@ router.get('/analise', async (req, res) => {
 
 //! ADICIONAR ITENS DA PLANILHA
 router.post('/adicionar', async (req, res) => {
-    console.log(req.body);
-    res.status(200).json({ mensagem: 'Dados recebidos com sucesso' }); //const dados = Excel.retornarDados('./pasta1.xlsx', 0);
-});
+    try {
+        const name = req.body.name;
+        const path = req.body.path;
 
+        // Executa o que precisa com path e name
+        const dados = Excel.retornarDados(path, 0);
+        //await RepositorioTransacao.iniciarConexao(); // USAR PARA CRIAR A TABELA APENAS
+        await Formatacao.cadastrarDados(dados, 1);
+
+        console.log('teste dados deletados');
+
+        res.status(200).json({ mensagem: 'Dados recebidos com sucesso' });
+    } catch (erro) {
+        console.error('Erro na rota /adicionar:', erro);
+        res.status(500).json({ mensagem: 'Erro interno no servidor' });
+    }
+});
 module.exports = router;
