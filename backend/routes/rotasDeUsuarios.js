@@ -24,6 +24,7 @@ router.get('/todos', async (req, res) => {
         res.status(500).send('Erro ao buscar transações');
     }
 });
+
 //! cadastrar novo
 router.post('/cadastrar', async (req, res) => {
     try {
@@ -72,7 +73,7 @@ router.post('/login', async (req, res) => {
             return res.status(404).json({ mensagem: 'Usuário não encontrado' });
         }
 
-        //TODO: FAZER VALIDACAO COM JWT
+        //!  VALIDACAO COM JWT
         if (usuario.dataValues.senha == senha) {
             const token = jwt.sign({ cpf: usuario.dataValues.cpf }, SEGREDO, {
                 expiresIn: 300,
@@ -97,7 +98,6 @@ router.post('/login', async (req, res) => {
 });
 
 //! Rota que recebe o upload
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(
@@ -112,7 +112,6 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + uniqueSuffix + ext);
     },
 });
-
 const upload = multer({ storage: storage });
 router.post('/upload', upload.single('file'), async (req, res) => {
     try {

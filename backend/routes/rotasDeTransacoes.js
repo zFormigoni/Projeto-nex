@@ -81,7 +81,7 @@ router.get('/analise', autenticarToken, async (req, res) => {
 });
 
 //! ADICIONAR ITENS DA PLANILHA
-router.post('/adicionar', autenticarToken, async (req, res) => {
+router.post('/adicionar', async (req, res) => {
     try {
         const name = req.body.name;
         const path = req.body.path;
