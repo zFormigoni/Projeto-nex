@@ -27,7 +27,10 @@ function User() {
     const buscardados = (URL) => {
         fetch(URL)
             .then((response) => response.json())
-            .then((data) => validaDados(data))
+            .then((data) => {
+                console.log(data);
+                validaDados(data);
+            })
             .catch((error) => console.error('Erro ao buscar dados', error));
     };
 
@@ -36,7 +39,7 @@ function User() {
         let somaValor = 0;
 
         dados.forEach((transacao) => {
-            if ((transacao.status = 1)) {
+            if (transacao.status == 1) {
                 somaPontos += transacao.pontos;
                 somaValor += parseInt(transacao.valor_monetario);
             }

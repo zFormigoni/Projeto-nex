@@ -9,16 +9,9 @@ const RepositorioTransacao = require('./db/RepositorioTransacao');
 const RepositorioUsuarios = require('./db/RepositorioUsuarios');
 const Usuario = require('./model/usuario');
 
-//? pega os dados da planilha
-//const dados = Excel.retornarDados('./pasta1.xlsx', 0);
-
-//! Transacao
-//RepositorioTransacao.iniciarConexao(); //? CRIA A TABELA DE USUARIO SE NAO HOUVER
-//Formatacao.cadastrarDados(dados, 1); //? cadastra os dados no banco de dados
-//Formatacao.cadastrarDados(dados, 2); //? deleta os dados no banco de dados
-
 //! Usuarios
 //RepositorioUsuarios.iniciarConexao(); //? CRIA A TABELA DE USUARIO SE NAO HOUVER
+//! Cria um usuario ADM
 //const adm = new Usuario(12312312312, 'vitor', 'vitor@gmail.com', 'senha', 1);
 //RepositorioUsuarios.CriarItem(adm);
 

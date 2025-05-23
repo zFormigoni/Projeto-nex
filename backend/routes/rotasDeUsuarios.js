@@ -33,6 +33,7 @@ router.post('/cadastrar', async (req, res) => {
             tipo: 2, //? por padrao so vao ser cadastrados usuarios comuns
         };
 
+        //? validar se ja existe por email
         const resposta = await RepositorioUsuarios.CriarItem(novoUsuario);
 
         if (resposta == 1) {

@@ -17,6 +17,12 @@ const RepositorioUsuarios = {
     //! CREATE
     async CriarItem(item) {
         try {
+            const itemUsuario = await ConexaoUsuario.findOne({
+                where: { email: item.email },
+            });
+            if (itemUsuario !== null) {
+                return 2; //! 2 == dubplicado
+            }
             await ConexaoUsuario.create(item);
             mostrarResposta('Item Criado');
             return 1; //! 1 == ok
@@ -66,7 +72,7 @@ const RepositorioUsuarios = {
             });
             return item;
         } catch (erro) {
-            mostrarResposta('Erro ao busca item por CPF');
+            mostrarResposta('Erro ao busca item por Email');
         }
     },
 };

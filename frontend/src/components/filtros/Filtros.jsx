@@ -97,7 +97,13 @@ function Filtros({ dados, tipo }) {
             return (
                 <div className="Filtro-usuario">
                     <FiltroData />
-                    <FiltroValor />
+                    <CheckboxFiltro
+                        valorSelecionado={statusFiltro}
+                        onChange={(e) => {
+                            setStatusFiltro(e);
+                            limparFiltros('status');
+                        }}
+                    />
                 </div>
             );
         } else if (tipo == 1) {
