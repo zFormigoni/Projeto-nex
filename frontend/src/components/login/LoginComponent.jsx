@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './Login.css'; // Arquivo opcional para estilos
+import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [mensagem, setMensagem] = useState(false);
-    const navigate = useNavigate(); // Hook de navegação para redirecionamento
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -78,10 +78,9 @@ router.post('/login', async (req, res) => {
                 expiresIn: 300,
             });
 
-            //! se quebrar volta o codigo pra isso
-            // res.status(200).json({
+            //! se quebrar volta o codigo pra isso --> res.status(200).json({
             return res.json({
-                /* mensagem: 'Login bem-sucedido',*/
+                mensagem: 'Login bem-sucedido',
                 usuario: usuario,
                 auth: true,
                 token,

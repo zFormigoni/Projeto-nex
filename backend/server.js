@@ -11,6 +11,7 @@ const Usuario = require('./model/usuario');
 
 //! Usuarios
 //RepositorioUsuarios.iniciarConexao(); //? CRIA A TABELA DE USUARIO SE NAO HOUVER
+
 //! Cria um usuario ADM
 //const adm = new Usuario(12312312312, 'vitor', 'vitor@gmail.com', 'senha', 1);
 //RepositorioUsuarios.CriarItem(adm);

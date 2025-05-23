@@ -5,7 +5,7 @@
     border: 2px solid #ccc;
     border-radius: 15px;
     text-align: center;
-    font-size: 22px; /* Aumenta o texto padrão */
+    font-size: 22px;
 }
 
 .cadastro-container input {
@@ -21,7 +21,7 @@
 
 .nomeEcpf {
     display: flex;
-    gap: 20px; /* espaço entre os inputs */
+    gap: 20px;
     align-items: flex-start;
 }
 

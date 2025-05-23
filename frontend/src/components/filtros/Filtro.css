@@ -2,41 +2,41 @@
     display: flex;
     align-items: center;
 
-    gap: 8px; /* Reduz o espaço entre os campos */
+    gap: 8px;
     align-items: center;
-    flex-wrap: wrap; /* Quebra de linha em telas pequenas */
+    flex-wrap: wrap;
 }
 .filtroValor {
     display: flex;
     align-items: center;
 
-    gap: 8px; /* Reduz o espaço entre os campos */
+    gap: 8px;
     align-items: center;
-    flex-wrap: wrap; /* Quebra de linha em telas pequenas */
+    flex-wrap: wrap;
 }
 
 .Filtro-usuario {
     display: flex;
-    gap: 20px; /* espaço entre os filtros */
-    justify-content: center; /* centraliza os filtros horizontalmente */
+    gap: 20px;
+    justify-content: center;
     margin: 20px 0;
 }
 
 .FiltroData,
 .FiltroValor {
     display: flex;
-    gap: 15px; /* espaço entre os inputs dentro de cada filtro */
+    gap: 15px;
 }
 
 .FiltroData input,
 .FiltroValor input {
     width: 150px;
-    height: 40px; /* mais altos */
+    height: 40px;
     padding: 0 12px;
     font-size: 1.1rem;
-    border: 2px solid #4a90e2; /* borda azul */
+    border: 2px solid #4a90e2;
     border-radius: 8px;
-    background-color: #f0f8ff; /* fundo clarinho */
+    background-color: #f0f8ff;
     color: #333;
     transition: border-color 0.3s ease, box-shad;
 }
