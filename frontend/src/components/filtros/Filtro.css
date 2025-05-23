@@ -15,13 +15,6 @@
     flex-wrap: wrap;
 }
 
-.Filtro-usuario {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin: 20px 0;
-}
-
 .FiltroData,
 .FiltroValor {
     display: flex;
@@ -39,4 +32,36 @@
     background-color: #f0f8ff;
     color: #333;
     transition: border-color 0.3s ease, box-shad;
+}
+
+.filtro-container {
+    margin-right: 150px;
+    margin-bottom: 15px;
+}
+
+.filtro-label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.filtro-input {
+    padding: 8px 12px;
+    margin-left: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.filtro-input:focus {
+    border-color: #007bff;
+}
+
+.filtro-input {
+    height: 38px;
+    box-sizing: border-box;
 }

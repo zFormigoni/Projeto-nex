@@ -2,7 +2,7 @@ import React from 'react';
 
 function FiltroInput({ label, type = 'text', value, onChange, placeholder }) {
     return (
-        <div style={{ marginRight: '150px', marginBottom: '10px' }}>
+        <div className="filtro-container">
             <label>
                 {label}:&nbsp;
                 <input

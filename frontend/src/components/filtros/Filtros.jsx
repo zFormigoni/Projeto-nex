@@ -3,6 +3,7 @@ import FiltroInput from '../filtros/FiltroInput';
 import CheckboxFiltro from '../filtros/CheckboxFiltroStatus';
 import './Filtro.css';
 import TabelaTransacoes from '../transacoes/TabelaTransacoes';
+import UploadExcel from '../excel/InputPlanilha';
 
 function Filtros({ dados, tipo }) {
     const [dadosFiltrados, setDadosFiltrados] = useState([]);
@@ -43,7 +44,7 @@ function Filtros({ dados, tipo }) {
             <div className="filtroData">
                 <FiltroInput
                     type="date"
-                    label="Data de Inicio" //!Filtro Data de inicio
+                    label="Data Inicio" //!Filtro Data de inicio
                     value={dataInicio}
                     onChange={(e) => {
                         setDataInicio(e.target.value);
@@ -109,9 +110,9 @@ function Filtros({ dados, tipo }) {
         } else if (tipo == 1) {
             return (
                 <div className="Filtro-adm">
-                    <FiltroCPF />
                     <FiltroData />
                     <FiltroValor />
+                    <FiltroCPF />
                     <CheckboxFiltro
                         valorSelecionado={statusFiltro}
                         onChange={(e) => {
@@ -119,6 +120,7 @@ function Filtros({ dados, tipo }) {
                             limparFiltros('status');
                         }}
                     />
+                    <UploadExcel />
                 </div>
             );
         }
@@ -235,13 +237,16 @@ function Filtros({ dados, tipo }) {
     return (
         <div>
             {filtrosCorretos(tipo)}
-            <TabelaTransacoes
-                dados={
-                    dadosFiltrados.length == 0 && algumFiltroAtivo() == false
-                        ? dados
-                        : dadosFiltrados
-                }
-            />
+            <div className="tabela">
+                <TabelaTransacoes
+                    dados={
+                        dadosFiltrados.length == 0 &&
+                        algumFiltroAtivo() == false
+                            ? dados
+                            : dadosFiltrados
+                    }
+                />
+            </div>
         </div>
     );
 }
