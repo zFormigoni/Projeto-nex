@@ -9,17 +9,15 @@ function User() {
     const nome = localStorage.getItem('nomeUsuario');
 
     const [dados, setDados] = useState(null);
-    const [valor, setValor] = useState(null);
-    const [pontos, setPontos] = useState(null);
 
     const validaDados = (dados) => {
         if (!dados) {
             setDados([]);
         } else if (Array.isArray(dados)) {
-            calcularSaldo(dados);
+            //calcularSaldo(dados);
             setDados(dados);
         } else {
-            calcularSaldo(dados);
+            //calcularSaldo(dados);
             setDados([dados]);
         }
     };
@@ -28,25 +26,9 @@ function User() {
         fetch(URL)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 validaDados(data);
             })
             .catch((error) => console.error('Erro ao buscar dados', error));
-    };
-
-    const calcularSaldo = (dados) => {
-        let somaPontos = 0;
-        let somaValor = 0;
-
-        dados.forEach((transacao) => {
-            if (transacao.status == 1) {
-                somaPontos += transacao.pontos;
-                somaValor += parseInt(transacao.valor_monetario);
-            }
-        });
-
-        setPontos(somaPontos);
-        setValor(somaValor);
     };
 
     useEffect(() => {
@@ -59,7 +41,7 @@ function User() {
             <div className="user-page">
                 <div className="painel-conteudo">
                     <Filtros dados={dados} tipo={2} />
-                    <CarteiraUsuario pontos={pontos} valor={valor} />
+                    <CarteiraUsuario dados={dados} />
                 </div>
             </div>
         </div>
