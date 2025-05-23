@@ -22,20 +22,20 @@ function Login() {
                 }
             );
             const resultado = await resposta.json();
-            const tipoUsuario = resultado.usuario.tipo;
-
-            localStorage.setItem(`token`, resultado.token);
-
-            localStorage.setItem(`nomeUsuario`, resultado.usuario.nome);
-            localStorage.setItem('cpfUsuario', resultado.usuario.cpf); //? salva no localstorage para usar na pagina de usuario
 
             if (resposta.status === 200) {
+                const tipoUsuario = resultado.usuario.tipo;
+
+                localStorage.setItem(`token`, resultado.token);
+                localStorage.setItem(`nomeUsuario`, resultado.usuario.nome);
+                localStorage.setItem('cpfUsuario', resultado.usuario.cpf); //? salva no localstorage para usar na pagina de usuario
+
                 if (tipoUsuario === 1) {
                     navigate('/admin'); //? Redireciona para pagina de adm
                 } else if (tipoUsuario == 2) {
                     navigate('/user'); //? Redireciona para pagina de usuario
                 }
-            } else {
+            } else if (resposta.status === 404) {
                 setMensagem(
                     <span style={{ color: 'red' }}>{resultado.mensagem}</span>
                 );
