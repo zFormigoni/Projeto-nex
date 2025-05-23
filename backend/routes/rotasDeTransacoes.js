@@ -16,6 +16,8 @@ function autenticarToken(req, res, next) {
         if (err) return res.status(401).end();
 
         req.cpf = decoded.cpf;
+
+        console.log(`Usuario logado, cpf: ${decoded.cpf}`);
         next();
     });
 }
@@ -33,7 +35,7 @@ router.get('/todos', autenticarToken, async (req, res) => {
 });
 
 //!busca por cpf
-router.get('/cpf/:cpf', async (req, res) => {
+router.get('/cpf/:cpf', autenticarToken, async (req, res) => {
     const { cpf } = req.params; // Pega o CPF da URL
 
     try {
@@ -46,7 +48,7 @@ router.get('/cpf/:cpf', async (req, res) => {
 });
 
 //!buscar aprovados
-router.get('/aprovados', async (req, res) => {
+router.get('/aprovados', autenticarToken, async (req, res) => {
     try {
         const transacao = await RepositorioTransacao.BuscarStatus(1);
         res.json(transacao);
@@ -57,7 +59,7 @@ router.get('/aprovados', async (req, res) => {
 });
 
 //!buscar Reprovados
-router.get('/reprovados', async (req, res) => {
+router.get('/reprovados', autenticarToken, async (req, res) => {
     try {
         const transacao = await RepositorioTransacao.BuscarStatus(2);
         res.json(transacao);
@@ -68,7 +70,7 @@ router.get('/reprovados', async (req, res) => {
 });
 
 //!buscar Em analise
-router.get('/analise', async (req, res) => {
+router.get('/analise', autenticarToken, async (req, res) => {
     try {
         const transacao = await RepositorioTransacao.BuscarStatus(3);
         res.json(transacao);
@@ -79,7 +81,7 @@ router.get('/analise', async (req, res) => {
 });
 
 //! ADICIONAR ITENS DA PLANILHA
-router.post('/adicionar', async (req, res) => {
+router.post('/adicionar', autenticarToken, async (req, res) => {
     try {
         const name = req.body.name;
         const path = req.body.path;
